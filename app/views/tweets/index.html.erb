@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>All The Tweets That Are Fit To Print!</h1>
+
+<%= link_to 'New Tweet', new_tweet_path, class: 'btn btn-warning' %>
+
+<table class="table table-striped table-hover">
+  <!-- Table Head -->
+  <thead>
+    <tr>
+      <th>Message</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <!-- Table Body -->
+  <tbody>
+    <% @tweets.each do |tweet| %>
+      <tr>
+        <td><%= tweet.message %></td>
+        <td><%= tweet.user.username %></td>
+        <td><%= link_to 'Show', tweet %></td>
+        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
+        <td><%= link_to fa_icon('bomb 2x'), tweet, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
