@@ -1,4 +1,6 @@
 class TweetsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
   end
 
@@ -9,5 +11,43 @@ class TweetsController < ApplicationController
   end
 
   def new
+    @tweet = Tweet.new
   end
-end
+
+  def create
+    @tweet = Tweet.new(tweet_params)
+
+    respond_to do |format|
+
+      if @tweet.save
+        format.html { redirect_to @tweet, notice: 'You just tweeted.' }
+      else
+        format.html { render :new }
+      end # end of if statement
+
+    end # end of do
+
+  end # end of create action
+
+
+  private
+
+  def tweet_params
+    params.require(:tweet).permit(:message, :user_id)
+  end
+
+end #End of the TweetsController
+
+
+
+
+
+
+
+
+
+
+
+
+
+
